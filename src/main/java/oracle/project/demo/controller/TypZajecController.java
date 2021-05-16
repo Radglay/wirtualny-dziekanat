@@ -24,7 +24,7 @@ public class TypZajecController {
     }
 
     @PostMapping()
-    public TypZajec saveOne(@RequestBody TypZajec typZajec) {
-        return typZajecService.save(typZajec);
+    public TypZajec saveOne(@RequestParam String nazwa_typu_zajec) {
+        return typZajecService.save(nazwa_typu_zajec);
     }
 }

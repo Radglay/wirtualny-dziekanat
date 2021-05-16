@@ -20,13 +20,13 @@ public class TypZajecService {
         return typZajecRepository.findAll();
     }
 
-    public TypZajec save(TypZajec typZajec) {
+    public TypZajec save(String typZajec) {
         TypZajec typZajecObj = null;
-        String nazwaTypuZajec = typZajec.getNazwa_typu_zajec();
-        if(nazwaTypuZajec != null && !nazwaTypuZajec.equals("")) {
-            if(!typZajecRepository.findTypZajecByNazwa_typu_zajec(nazwaTypuZajec).isPresent()) {
+
+        if(typZajec != null && !typZajec.equals("")) {
+            if(!typZajecRepository.findTypZajecByNazwa_typu_zajec(typZajec).isPresent()) {
                 //nie znaleziono
-                typZajecObj = typZajecRepository.save(typZajec);
+                typZajecObj = typZajecRepository.save(new TypZajec(typZajec));
             }
         }
 

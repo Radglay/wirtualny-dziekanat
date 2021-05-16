@@ -71,6 +71,9 @@ public class Ocena {
         this.id_przedmiotu = id_przedmiotu;
     }
 
+    public Ocena() {
+    }
+
     @Override
     public String toString() {
         return "Ocena{" +

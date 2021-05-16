@@ -37,6 +37,9 @@ public class GrupaZajeciowa {
         this.id_przedmiotu = id_przedmiotu;
     }
 
+    public GrupaZajeciowa() {
+    }
+
     @Override
     public String toString() {
         return "GrupaZajeciowa{" +

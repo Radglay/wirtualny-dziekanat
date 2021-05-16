@@ -29,6 +29,9 @@ public class Wydzial {
         this.nazwa_wydzialu = nazwa_wydzialu;
     }
 
+    public Wydzial() {
+    }
+
     @Override
     public String toString() {
         return "Wydzial{" +

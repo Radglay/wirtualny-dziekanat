@@ -30,6 +30,9 @@ public class Dziedzina {
         this.nazwa_dziedziny = nazwa_dziedziny;
     }
 
+    public Dziedzina() {
+    }
+
     @Override
     public String toString() {
         return "Dziedzina{" +

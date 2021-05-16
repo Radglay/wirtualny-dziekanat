@@ -60,6 +60,9 @@ public class Student {
         this.id_grupy_zajeciowej = id_grupy_zajeciowej;
     }
 
+    public Student() {
+    }
+
     @Override
     public String toString() {
         return "Student{" +

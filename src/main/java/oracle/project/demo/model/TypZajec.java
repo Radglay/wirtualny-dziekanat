@@ -36,4 +36,7 @@ public class TypZajec {
                 ", nazwa_typu_zajec='" + nazwa_typu_zajec + '\'' +
                 '}';
     }
+
+    public TypZajec() {
+    }
 }

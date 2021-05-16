@@ -49,6 +49,9 @@ public class Przedmiot {
         this.id_zajec = id_zajec;
     }
 
+    public Przedmiot() {
+    }
+
     @Override
     public String toString() {
         return "Przedmiot{" +

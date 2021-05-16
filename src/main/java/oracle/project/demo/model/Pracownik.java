@@ -59,6 +59,9 @@ public class Pracownik {
         this.id_dziedziny = id_dziedziny;
     }
 
+    public Pracownik() {
+    }
+
     @Override
     public String toString() {
         return "Pracownik{" +

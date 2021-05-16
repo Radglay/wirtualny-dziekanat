@@ -70,6 +70,9 @@ public class Zajecia {
         this.id_typu_zajec = id_typu_zajec;
     }
 
+    public Zajecia() {
+    }
+
     @Override
     public String toString() {
         return "Zajecia{" +

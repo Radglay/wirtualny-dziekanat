@@ -1,14 +1,16 @@
 package oracle.project.demo.model;
 
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "Typ_zajec")
 public class TypZajec {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "typ_zajec_generator", sequenceName = "typ_zajec_seq")
     private Long id_typu_zajec;
     private String nazwa_typu_zajec;
 

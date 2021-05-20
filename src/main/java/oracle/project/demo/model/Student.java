@@ -1,12 +1,11 @@
 package oracle.project.demo.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Student {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long ID_STUDENTA;
     private String imie_studenta;
     private String nazwisko_studenta;

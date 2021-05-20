@@ -30,4 +30,27 @@ public class StudentService {
 
         return studentObj;
     }
+
+    public Student save(Student student) {
+        Student studentObj = null;
+
+        if(student.getImie_studenta() != null && !student.getImie_studenta().equals("")) {
+            if(student.getNazwisko_studenta() != null && !student.getNazwisko_studenta().equals("")) {
+                Optional<Student> studentRep = studentRepository.findStudentByImie_studentaAndNazwisko_studenta(
+                        student.getImie_studenta(),
+                        student.getNazwisko_studenta()
+                );
+                if(studentRep.isEmpty()) { //nie ma w bazie, dodajemy
+                    studentObj = studentRepository.save(new Student(
+                            student.getImie_studenta(),
+                            student.getNazwisko_studenta(),
+                            student.getIndeks_studenta(),
+                            student.getId_grupy_zajeciowej())
+                    );
+                }
+            }
+        }
+
+        return studentObj;
+    }
 }

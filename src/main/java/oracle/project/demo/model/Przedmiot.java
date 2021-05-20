@@ -1,11 +1,15 @@
 package oracle.project.demo.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Przedmiot {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_przedmiotu;
     private String nazwa_przedmiotu;
     private Long id_pracownika;

@@ -1,11 +1,14 @@
 package oracle.project.demo.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Pracownik {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_pracownika;
     private String imie_pracownika;
     private String nazwisko_pracownika;

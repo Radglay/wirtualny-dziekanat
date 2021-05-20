@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TypZajecService {
@@ -20,14 +21,19 @@ public class TypZajecService {
         return typZajecRepository.findAll();
     }
 
-    public TypZajec save(String typZajec) {
-        TypZajec typZajecObj = null;
+    public Optional<TypZajec> getTypZajecByNazwa(String nazwa) {
+        Optional<TypZajec> typZajecObj = Optional.empty();
+        if(nazwa != null && !nazwa.equals("")) {
+            typZajecObj = this.typZajecRepository.findTypZajecByNazwa_typu_zajec(nazwa);
+        }
+        return typZajecObj;
+    }
 
-        if(typZajec != null && !typZajec.equals("")) {
-            if(!typZajecRepository.findTypZajecByNazwa_typu_zajec(typZajec).isPresent()) {
-                //nie znaleziono
-                typZajecObj = typZajecRepository.save(new TypZajec(typZajec));
-            }
+    public TypZajec save(String nazwa) {
+        TypZajec typZajecObj = null;
+        if(this.getTypZajecByNazwa(nazwa).isEmpty()) {
+            //nie znaleziono
+            typZajecObj = typZajecRepository.save(new TypZajec(nazwa));
         }
 
         return typZajecObj;

@@ -1,12 +1,11 @@
 package oracle.project.demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+
+import javax.persistence.*;
 
 
 @Entity
-@Table(name = "Typ_zajec")
 public class TypZajec {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

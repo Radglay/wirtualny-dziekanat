@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService {
@@ -19,5 +20,14 @@ public class StudentService {
 
     public List<Student> getAll() {
         return studentRepository.findAll();
+    }
+
+    public Optional<Student> getStudentById(Long id) {
+        Optional<Student> studentObj = Optional.empty();
+        if(id != null && id > 0) {
+            studentObj = studentRepository.findById(id);
+        }
+
+        return studentObj;
     }
 }

@@ -13,6 +13,14 @@ public class Ocena {
     private int waga_oceny;
     private Long fk_id_przedmiotu;
 
+    @ManyToOne
+    @JoinColumn(name = "id_przedmiotu", nullable = false)
+    private Przedmiot przedmiot;
+
+    @ManyToOne
+    @JoinColumn(name = "id_studenta", nullable = false)
+    private Student student;
+
     public Long getId_oceny() {
         return id_oceny;
     }

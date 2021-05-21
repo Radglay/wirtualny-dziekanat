@@ -1,6 +1,7 @@
 package oracle.project.demo.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Student {
@@ -11,6 +12,16 @@ public class Student {
     private String nazwisko_studenta;
     private String indeks_studenta;
     private Long fk_id_grupy_zajeciowej;
+
+    @OneToMany(mappedBy = "student")
+    private Set<Ocena> oceny;
+
+    @ManyToMany
+    @JoinTable(
+            name = "studenci_grupy",
+            joinColumns = @JoinColumn(name = "id_studenta"),
+            inverseJoinColumns = @JoinColumn(name = "id_grupy_zajeciowej"))
+    private Set<GrupaZajeciowa> grupyZajeciowe;
 
     public String getImie_studenta() {
         return imie_studenta;

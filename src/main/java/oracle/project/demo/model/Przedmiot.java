@@ -1,10 +1,7 @@
 package oracle.project.demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Przedmiot {
@@ -13,6 +10,12 @@ public class Przedmiot {
     private Long id_przedmiotu;
     private String nazwa_przedmiotu;
     private Long fk_id_pracownika;
+
+    @OneToMany(mappedBy = "przedmiot")
+    private Set<Ocena> oceny;
+
+    @OneToMany(mappedBy = "przedmiot")
+    private Set<Pracownik> pracownicy;
 
     public Long getId_przedmiotu() {
         return id_przedmiotu;

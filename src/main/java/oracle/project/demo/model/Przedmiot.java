@@ -12,8 +12,7 @@ public class Przedmiot {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_przedmiotu;
     private String nazwa_przedmiotu;
-    private Long id_pracownika;
-    private Long id_zajec;
+    private Long fk_id_pracownika;
 
     public Long getId_przedmiotu() {
         return id_przedmiotu;
@@ -31,26 +30,18 @@ public class Przedmiot {
         this.nazwa_przedmiotu = nazwa_przedmiotu;
     }
 
-    public Long getId_pracownika() {
-        return id_pracownika;
+    public Long getFk_id_pracownika() {
+        return fk_id_pracownika;
     }
 
-    public void setId_pracownika(Long id_pracownika) {
-        this.id_pracownika = id_pracownika;
+    public void setFk_id_pracownika(Long id_pracownika) {
+        this.fk_id_pracownika = id_pracownika;
     }
 
-    public Long getId_zajec() {
-        return id_zajec;
-    }
 
-    public void setId_zajec(Long id_zajec) {
-        this.id_zajec = id_zajec;
-    }
-
-    public Przedmiot(String nazwa_przedmiotu, Long id_pracownika, Long id_zajec) {
+    public Przedmiot(String nazwa_przedmiotu, Long id_pracownika) {
         this.nazwa_przedmiotu = nazwa_przedmiotu;
-        this.id_pracownika = id_pracownika;
-        this.id_zajec = id_zajec;
+        this.fk_id_pracownika = id_pracownika;
     }
 
     public Przedmiot() {
@@ -61,8 +52,7 @@ public class Przedmiot {
         return "Przedmiot{" +
                 "id_przedmiotu=" + id_przedmiotu +
                 ", nazwa_przedmiotu='" + nazwa_przedmiotu + '\'' +
-                ", id_pracownika=" + id_pracownika +
-                ", id_zajec=" + id_zajec +
+                ", id_pracownika=" + fk_id_pracownika +
                 '}';
     }
 }

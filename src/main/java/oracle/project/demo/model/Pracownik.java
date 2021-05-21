@@ -1,9 +1,6 @@
 package oracle.project.demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Pracownik {
@@ -12,7 +9,12 @@ public class Pracownik {
     private Long id_pracownika;
     private String imie_pracownika;
     private String nazwisko_pracownika;
-    private Long id_wydzialu;
+
+    @ManyToOne
+    @JoinColumn(name = "id_wydzialu")
+    private Wydzial wydzial;
+
+    private Long fk_id_wydzialu;
     private Long id_dziedziny;
 
     public Long getId_pracownika() {
@@ -39,12 +41,12 @@ public class Pracownik {
         this.nazwisko_pracownika = nazwisko_pracownika;
     }
 
-    public Long getId_wydzialu() {
-        return id_wydzialu;
+    public Long getFk_id_wydzialu() {
+        return fk_id_wydzialu;
     }
 
-    public void setId_wydzialu(Long id_wydzialu) {
-        this.id_wydzialu = id_wydzialu;
+    public void setFk_id_wydzialu(Long id_wydzialu) {
+        this.fk_id_wydzialu = id_wydzialu;
     }
 
     public Long getId_dziedziny() {
@@ -58,7 +60,7 @@ public class Pracownik {
     public Pracownik(String imie_pracownika, String nazwisko_pracownika, Long id_wydzialu, Long id_dziedziny) {
         this.imie_pracownika = imie_pracownika;
         this.nazwisko_pracownika = nazwisko_pracownika;
-        this.id_wydzialu = id_wydzialu;
+        this.fk_id_wydzialu = id_wydzialu;
         this.id_dziedziny = id_dziedziny;
     }
 
@@ -71,7 +73,7 @@ public class Pracownik {
                 "id_pracownika=" + id_pracownika +
                 ", imie_pracownika='" + imie_pracownika + '\'' +
                 ", nazwisko_pracownika='" + nazwisko_pracownika + '\'' +
-                ", id_wydzialu=" + id_wydzialu +
+                ", id_wydzialu=" + fk_id_wydzialu +
                 ", id_dziedziny=" + id_dziedziny +
                 '}';
     }

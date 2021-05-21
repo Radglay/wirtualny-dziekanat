@@ -30,4 +30,11 @@ public class GrupaZajeciowaService {
 
         return grupaZajeciowaObj;
     }
+
+//    public GrupaZajeciowa save(GrupaZajeciowa grupaZajeciowa) {
+//        GrupaZajeciowa grupaZajeciowaObj = null;
+//        if(grupaZajeciowa.getId_przedmiotu()!= null && grupaZajeciowa.getId_przedmiotu() > 0) {
+//
+//        }
+//    }
 }

@@ -10,7 +10,7 @@ public class Student {
     private String imie_studenta;
     private String nazwisko_studenta;
     private String indeks_studenta;
-    private Long id_grupy_zajeciowej;
+    private Long fk_id_grupy_zajeciowej;
 
     public String getImie_studenta() {
         return imie_studenta;
@@ -36,12 +36,12 @@ public class Student {
         this.indeks_studenta = indeks_studenta;
     }
 
-    public Long getId_grupy_zajeciowej() {
-        return id_grupy_zajeciowej;
+    public Long getFk_id_grupy_zajeciowej() {
+        return fk_id_grupy_zajeciowej;
     }
 
-    public void setId_grupy_zajeciowej(Long id_grupy_zajeciowej) {
-        this.id_grupy_zajeciowej = id_grupy_zajeciowej;
+    public void setFk_id_grupy_zajeciowej(Long id_grupy_zajeciowej) {
+        this.fk_id_grupy_zajeciowej = id_grupy_zajeciowej;
     }
 
     public void setId(Long ID_STUDENTA) {
@@ -56,7 +56,7 @@ public class Student {
         this.imie_studenta = imie_studenta;
         this.nazwisko_studenta = nazwisko_studenta;
         this.indeks_studenta = indeks_studenta;
-        this.id_grupy_zajeciowej = id_grupy_zajeciowej;
+        this.fk_id_grupy_zajeciowej = id_grupy_zajeciowej;
     }
 
     public Student() {
@@ -69,7 +69,7 @@ public class Student {
                 ", imie_studenta='" + imie_studenta + '\'' +
                 ", nazwisko_studenta='" + nazwisko_studenta + '\'' +
                 ", indeks_studenta='" + indeks_studenta + '\'' +
-                ", id_grupy_zajeciowej=" + id_grupy_zajeciowej +
+                ", id_grupy_zajeciowej=" + fk_id_grupy_zajeciowej +
                 '}';
     }
 }

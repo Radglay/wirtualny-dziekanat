@@ -45,7 +45,7 @@ public class StudentService {
                             student.getImie_studenta(),
                             student.getNazwisko_studenta(),
                             student.getIndeks_studenta(),
-                            student.getId_grupy_zajeciowej())
+                            student.getFk_id_grupy_zajeciowej())
                     );
                 }
             }

@@ -1,9 +1,7 @@
 package oracle.project.demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Wydzial {
@@ -11,6 +9,9 @@ public class Wydzial {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_wydzialu;
     private String nazwa_wydzialu;
+
+    @OneToMany(mappedBy = "wydzial")
+    private Set<Pracownik> pracownicy;
 
     public Long getId_wydzialu() {
         return id_wydzialu;

@@ -34,13 +34,10 @@ public class PrzedmiotService {
     public Przedmiot save(Przedmiot przedmiot) {
         Przedmiot przedmiotObj = null;
         if(przedmiot.getNazwa_przedmiotu() != null && !przedmiot.getNazwa_przedmiotu().equals("")) {
-            if(przedmiot.getFk_id_pracownika() != null && przedmiot.getFk_id_pracownika() > 0) {
                 przedmiotObj = przedmiotRepository.save(new Przedmiot(
-                        przedmiot.getNazwa_przedmiotu(),
-                        przedmiot.getFk_id_pracownika()
+                        przedmiot.getNazwa_przedmiotu()
                 ));
             }
-        }
 
         return przedmiotObj;
     }

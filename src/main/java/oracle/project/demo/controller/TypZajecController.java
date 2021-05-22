@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/typy-zajec")
@@ -18,13 +19,18 @@ public class TypZajecController {
         this.typZajecService = typZajecService;
     }
 
-    @GetMapping()
+    @GetMapping
     public List<TypZajec> getAll() {
         return typZajecService.getAll();
     }
 
-    @PostMapping()
-    public TypZajec saveOne(@RequestBody TypZajec typZajec) {
+    @PostMapping
+    public TypZajec save(@RequestBody TypZajec typZajec) {
         return typZajecService.save(typZajec.getNazwa_typu_zajec());
+    }
+
+    @DeleteMapping("/{id}")
+    public Optional<TypZajec> delete(@PathVariable Long id) {
+        return typZajecService.delete(id);
     }
 }

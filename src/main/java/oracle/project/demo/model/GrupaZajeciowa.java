@@ -1,56 +1,72 @@
 package oracle.project.demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class GrupaZajeciowa {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long fk_id_grupy_zajeciowej;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "grupa_zajeciowa_seq")
+    @SequenceGenerator(name = "grupa_zajeciowa_seq", sequenceName = "grupa_zajeciowa_seq", initialValue = 1, allocationSize = 1)
+    private Long id_grupy_zajeciowej;
     private String nazwa_grupy_zajeciowej;
-    private Long fk_id_przedmiotu;
+    private Date czas_rozpoczecia;
+    private Date czas_zakonczenia;
 
-    public void setFk_id_grupy_zajeciowej(Long id_grupy_zajeciowej) {
-        this.fk_id_grupy_zajeciowej = id_grupy_zajeciowej;
+    @ManyToMany(mappedBy = "grupyZajeciowe")
+    Set<Student> studenci;
+
+    @ManyToMany(mappedBy = "grupyZajeciowe")
+    Set<Pracownik> pracownicy;
+
+    public Date getCzas_rozpoczecia() {
+        return czas_rozpoczecia;
+    }
+
+    public void setCzas_rozpoczecia(Date czas_rozpoczecia) {
+        this.czas_rozpoczecia = czas_rozpoczecia;
+    }
+
+    public Date getCzas_zakonczenia() {
+        return czas_zakonczenia;
+    }
+
+    public void setCzas_zakonczenia(Date czas_zakonczenia) {
+        this.czas_zakonczenia = czas_zakonczenia;
+    }
+
+    public void setId_grupy_zajeciowej(Long id_grupy_zajeciowej) {
+        this.id_grupy_zajeciowej = id_grupy_zajeciowej;
     }
 
     public void setNazwa_grupy_zajeciowej(String nazwa_grupy_zajeciowej) {
         this.nazwa_grupy_zajeciowej = nazwa_grupy_zajeciowej;
     }
 
-    public void setFk_id_przedmiotu(Long id_przedmiotu) {
-        this.fk_id_przedmiotu = id_przedmiotu;
-    }
-
-    public Long getFk_id_grupy_zajeciowej() {
-        return fk_id_grupy_zajeciowej;
-    }
-
     public String getNazwa_grupy_zajeciowej() {
         return nazwa_grupy_zajeciowej;
-    }
-
-    public Long getFk_id_przedmiotu() {
-        return fk_id_przedmiotu;
-    }
-
-    public GrupaZajeciowa(String nazwa_grupy_zajeciowej, Long id_przedmiotu) {
-        this.nazwa_grupy_zajeciowej = nazwa_grupy_zajeciowej;
-        this.fk_id_przedmiotu = id_przedmiotu;
     }
 
     public GrupaZajeciowa() {
     }
 
+    public GrupaZajeciowa(String nazwa_grupy_zajeciowej, Date czas_rozpoczecia, Date czas_zakonczenia) {
+        this.nazwa_grupy_zajeciowej = nazwa_grupy_zajeciowej;
+        this.czas_rozpoczecia = czas_rozpoczecia;
+        this.czas_zakonczenia = czas_zakonczenia;
+    }
+
     @Override
     public String toString() {
         return "GrupaZajeciowa{" +
-                "id_grupy_zajeciowej=" + fk_id_grupy_zajeciowej +
+                "id_grupy_zajeciowej=" + id_grupy_zajeciowej +
                 ", nazwa_grupy_zajeciowej='" + nazwa_grupy_zajeciowej + '\'' +
-                ", id_przedmiotu=" + fk_id_przedmiotu +
                 '}';
     }
+
+    //todo
+    /*
+    terminarz z zajeciami
+     */
 }

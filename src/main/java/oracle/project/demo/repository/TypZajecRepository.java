@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface TypZajecRepository extends JpaRepository<TypZajec, Long> {
 
-    @Query("SELECT t.id_typu_zajec, t.nazwa_typu_zajec FROM TypZajec t WHERE t.nazwa_typu_zajec = ?1")
+    @Query("SELECT t FROM TypZajec t WHERE t.nazwa_typu_zajec = :nazwa")
     Optional<TypZajec> findTypZajecByNazwa_typu_zajec(@Param("nazwa") String nazwa);
 }

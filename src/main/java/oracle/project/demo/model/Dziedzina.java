@@ -1,14 +1,12 @@
 package oracle.project.demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Dziedzina {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dziedzina_seq")
+    @SequenceGenerator(name = "dziedzina_seq", sequenceName = "dziedzina_seq", initialValue = 1, allocationSize = 1)
     private Long id_dziedziny;
 
     private String nazwa_dziedziny;

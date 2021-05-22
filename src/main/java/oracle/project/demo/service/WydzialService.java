@@ -26,6 +26,32 @@ public class WydzialService {
         Optional<Wydzial> wydzialObj = Optional.empty();
         if(id != null && id > 0) {
             wydzialObj = wydzialRepository.findById(id);
+            System.out.println(wydzialObj);
+        }
+
+        return wydzialObj;
+    }
+
+    public Wydzial save(Wydzial wydzial) {
+        Wydzial wydzialObj = null;
+        if(wydzial.getNazwa_wydzialu() != null && !wydzial.getNazwa_wydzialu().equals("")) {
+            if(wydzialRepository.findByNazwa_wydzialu(wydzial.getNazwa_wydzialu()).isEmpty()) { //można tworzyć
+                System.out.println(wydzialRepository.findByNazwa_wydzialu(wydzial.getNazwa_wydzialu()));
+                wydzialObj = wydzialRepository.save(new Wydzial(wydzial.getNazwa_wydzialu()));
+            }
+        }
+
+        return wydzialObj;
+    }
+
+
+    public Optional<Wydzial> delete(Long id) {
+        Optional<Wydzial> wydzialObj = Optional.empty();
+        if(id != null && id > 0) {
+            if(wydzialRepository.existsById(id)) {
+                wydzialObj = wydzialRepository.findById(id);
+                wydzialRepository.deleteById(id);
+            }
         }
 
         return wydzialObj;

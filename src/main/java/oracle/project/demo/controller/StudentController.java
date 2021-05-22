@@ -19,12 +19,12 @@ public class StudentController {
     }
 
 
-    @GetMapping()
+    @GetMapping
     public List<Student> getAll() {
         return studentService.getAll();
     }
 
-    @PostMapping()
+    @PostMapping
     public Student saveStudent(@RequestBody Student student) {
         return studentService.save(student);
     }

@@ -1,9 +1,12 @@
 package oracle.project.demo.service;
 
+import oracle.project.demo.model.Ocena;
 import oracle.project.demo.model.Student;
+import oracle.project.demo.repository.OcenaRepository;
 import oracle.project.demo.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +14,6 @@ import java.util.Optional;
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
-
 
     @Autowired
     public StudentService(StudentRepository studentRepository) {
@@ -44,8 +46,7 @@ public class StudentService {
                     studentObj = studentRepository.save(new Student(
                             student.getImie_studenta(),
                             student.getNazwisko_studenta(),
-                            student.getIndeks_studenta(),
-                            student.getFk_id_grupy_zajeciowej())
+                            student.getIndeks_studenta())
                     );
                 }
             }
@@ -53,4 +54,5 @@ public class StudentService {
 
         return studentObj;
     }
+
 }

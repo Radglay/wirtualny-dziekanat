@@ -6,7 +6,8 @@ import javax.persistence.*;
 @Entity
 public class TypZajec {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "typ_zajec_seq")
+    @SequenceGenerator(name = "typ_zajec_seq", sequenceName = "typ_zajec_seq", initialValue = 1, allocationSize = 1)
     private Long id_typu_zajec;
     private String nazwa_typu_zajec;
 

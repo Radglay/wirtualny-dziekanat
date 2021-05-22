@@ -6,7 +6,8 @@ import java.util.Set;
 @Entity
 public class Wydzial {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "wydzial_seq")
+    @SequenceGenerator(name = "wydzial_seq", sequenceName = "wydzial_seq", initialValue = 1, allocationSize = 1)
     private Long id_wydzialu;
     private String nazwa_wydzialu;
 

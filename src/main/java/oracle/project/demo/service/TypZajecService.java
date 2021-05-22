@@ -38,4 +38,16 @@ public class TypZajecService {
 
         return typZajecObj;
     }
+
+    public Optional<TypZajec> delete(Long id) {
+        Optional<TypZajec> typZajecObj = Optional.empty();
+        if(id != null && id > 0) {
+            if(typZajecRepository.existsById(id)) { //znaleziono
+                typZajecObj = typZajecRepository.findById(id);
+                typZajecRepository.deleteById(id);
+            }
+        }
+
+        return typZajecObj;
+    }
 }

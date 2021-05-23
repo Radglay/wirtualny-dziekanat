@@ -1,5 +1,8 @@
 package oracle.project.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +20,7 @@ public class Student {
 
 
     @OneToMany(mappedBy = "student")
+    @JsonManagedReference
     private List<Ocena> oceny = new ArrayList<>();
 
     @ManyToMany
@@ -56,6 +60,22 @@ public class Student {
 
     public Long getId() {
         return id_studenta;
+    }
+
+    public List<Ocena> getOceny() {
+        return oceny;
+    }
+
+    public void setOceny(List<Ocena> oceny) {
+        this.oceny = oceny;
+    }
+
+    public Set<GrupaZajeciowa> getGrupyZajeciowe() {
+        return grupyZajeciowe;
+    }
+
+    public void setGrupyZajeciowe(Set<GrupaZajeciowa> grupyZajeciowe) {
+        this.grupyZajeciowe = grupyZajeciowe;
     }
 
     public Student(String imie_studenta, String nazwisko_studenta, String indeks_studenta) {

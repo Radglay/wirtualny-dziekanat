@@ -24,6 +24,11 @@ public class TypZajecController {
         return typZajecService.getAll();
     }
 
+    @GetMapping("/{id}")
+    public Optional<TypZajec> getById(@PathVariable Long id) {
+        return typZajecService.getById(id);
+    }
+
     @PostMapping
     public TypZajec save(@RequestBody TypZajec typZajec) {
         return typZajecService.save(typZajec.getNazwa_typu_zajec());

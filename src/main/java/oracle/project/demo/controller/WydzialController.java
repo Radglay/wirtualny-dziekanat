@@ -26,7 +26,7 @@ public class WydzialController {
 
     @GetMapping("/{id}")
     public Optional<Wydzial> getById(@PathVariable Long id) {
-        return wydzialService.getWydzialById(id);
+        return wydzialService.getById(id);
     }
 
     @PostMapping

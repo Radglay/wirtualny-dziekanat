@@ -22,7 +22,7 @@ public class PrzedmiotService {
         return przedmiotRepository.findAll();
     }
 
-    public Optional<Przedmiot> getPrzedmiotById(Long id) {
+    public Optional<Przedmiot> getById(Long id) {
         Optional<Przedmiot> przedmiotObj = Optional.empty();
         if(id != null && id > 0) {
             przedmiotObj = przedmiotRepository.findById(id);
@@ -41,4 +41,19 @@ public class PrzedmiotService {
 
         return przedmiotObj;
     }
+
+    public Optional<Przedmiot> delete(Long id) {
+        Optional<Przedmiot> przedmiotObj = Optional.empty();
+        if(id != null && id > 0) {
+            if(przedmiotRepository.existsById(id)) {
+                //istnieje
+                przedmiotObj = przedmiotRepository.findById(id);
+                przedmiotRepository.deleteById(id);
+            }
+        }
+
+        return przedmiotObj;
+    }
+
+
 }

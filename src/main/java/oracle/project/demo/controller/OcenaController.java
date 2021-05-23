@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/oceny")
@@ -23,8 +24,18 @@ public class OcenaController {
         return ocenaService.getAll();
     }
 
+    @GetMapping("/{id}")
+    public Optional<Ocena> getById(@PathVariable Long id) {
+        return ocenaService.getById(id);
+    }
+
     @PostMapping
     public Ocena save(@RequestBody Ocena ocena) {
         return ocenaService.save(ocena);
+    }
+
+    @DeleteMapping("/{id}")
+    public Optional<Ocena> delete(@PathVariable Long id) {
+        return ocenaService.delete(id);
     }
 }

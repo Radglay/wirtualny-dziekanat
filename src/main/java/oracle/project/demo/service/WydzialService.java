@@ -22,11 +22,10 @@ public class WydzialService {
         return wydzialRepository.findAll();
     }
 
-    public Optional<Wydzial> getWydzialById(Long id) {
+    public Optional<Wydzial> getById(Long id) {
         Optional<Wydzial> wydzialObj = Optional.empty();
         if(id != null && id > 0) {
             wydzialObj = wydzialRepository.findById(id);
-            System.out.println(wydzialObj);
         }
 
         return wydzialObj;

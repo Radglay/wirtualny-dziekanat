@@ -55,4 +55,17 @@ public class StudentService {
         return studentObj;
     }
 
+    public Optional<Student> delete(Long id) {
+        Optional<Student> studentObj = Optional.empty();
+        if(id != null && id > 0) {
+            if(studentRepository.existsById(id)) {
+                //istnieje
+                studentObj = studentRepository.findById(id);
+                studentRepository.deleteById(id);
+            }
+        }
+
+        return studentObj;
+    }
+
 }

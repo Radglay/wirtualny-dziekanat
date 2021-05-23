@@ -21,7 +21,7 @@ public class TypZajecService {
         return typZajecRepository.findAll();
     }
 
-    public Optional<TypZajec> getTypZajecByNazwa(String nazwa) {
+    public Optional<TypZajec> getByNazwa(String nazwa) {
         Optional<TypZajec> typZajecObj = Optional.empty();
         if(nazwa != null && !nazwa.equals("")) {
             typZajecObj = this.typZajecRepository.findTypZajecByNazwa_typu_zajec(nazwa);
@@ -29,9 +29,18 @@ public class TypZajecService {
         return typZajecObj;
     }
 
+    public Optional<TypZajec> getById(Long id) {
+        Optional<TypZajec> typZajecObj = Optional.empty();
+        if(id != null && id > 0) {
+            typZajecObj = typZajecRepository.findById(id);
+        }
+
+        return typZajecObj;
+    }
+
     public TypZajec save(String nazwa) {
         TypZajec typZajecObj = null;
-        if(this.getTypZajecByNazwa(nazwa).isEmpty()) {
+        if(this.getByNazwa(nazwa).isEmpty()) {
             //nie znaleziono
             typZajecObj = typZajecRepository.save(new TypZajec(nazwa));
         }

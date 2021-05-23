@@ -32,7 +32,7 @@ public class OcenaService {
         return ocenaRepository.findAll();
     }
 
-    public Optional<Ocena> getOcenaById(Long id) {
+    public Optional<Ocena> getById(Long id) {
         Optional<Ocena> ocenaObj = Optional.empty();
         if(id != null && id > 0) {
             ocenaObj = ocenaRepository.findById(id);
@@ -55,6 +55,19 @@ public class OcenaService {
                     ));
 
                 }
+            }
+        }
+
+        return ocenaObj;
+    }
+
+    public Optional<Ocena> delete(Long id) {
+        Optional<Ocena> ocenaObj = Optional.empty();
+        if(id != null && id > 0) {
+            if(ocenaRepository.existsById(id)) {
+                //istnieje
+                ocenaObj = ocenaRepository.findById(id);
+                ocenaRepository.deleteById(id);
             }
         }
 

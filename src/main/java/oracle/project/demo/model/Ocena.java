@@ -1,5 +1,7 @@
 package oracle.project.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -17,6 +19,7 @@ public class Ocena {
 
     @ManyToOne
     @JoinColumn(name = "id_studenta", nullable = false)
+    @JsonBackReference
     private Student student;
 
     public Long getId_oceny() {

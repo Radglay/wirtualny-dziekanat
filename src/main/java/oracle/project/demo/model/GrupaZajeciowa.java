@@ -1,5 +1,7 @@
 package oracle.project.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -11,7 +13,11 @@ public class GrupaZajeciowa {
     @SequenceGenerator(name = "grupa_zajeciowa_seq", sequenceName = "grupa_zajeciowa_seq", initialValue = 1, allocationSize = 1)
     private Long id_grupy_zajeciowej;
     private String nazwa_grupy_zajeciowej;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date czas_rozpoczecia;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date czas_zakonczenia;
 
     @ManyToMany(mappedBy = "grupyZajeciowe")
@@ -62,6 +68,8 @@ public class GrupaZajeciowa {
         return "GrupaZajeciowa{" +
                 "id_grupy_zajeciowej=" + id_grupy_zajeciowej +
                 ", nazwa_grupy_zajeciowej='" + nazwa_grupy_zajeciowej + '\'' +
+                ", czas_rozpoczecia=" + czas_rozpoczecia +
+                ", czas_zakonczenia=" + czas_zakonczenia +
                 '}';
     }
 

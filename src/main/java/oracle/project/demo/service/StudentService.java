@@ -1,10 +1,13 @@
 package oracle.project.demo.service;
 
 import oracle.project.demo.model.Ocena;
+import oracle.project.demo.model.Przedmiot;
 import oracle.project.demo.model.Student;
 import oracle.project.demo.repository.OcenaRepository;
 import oracle.project.demo.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,6 +69,25 @@ public class StudentService {
         }
 
         return studentObj;
+    }
+
+    public ResponseEntity<Student> update(Student student, Long id) {
+        Student studentObj = null;
+        if(id != null && id > 0) {
+            if(studentRepository.existsById(id)) {
+                //istnieje
+                studentObj = studentRepository.findById(id).get();
+                studentRepository.update(student.getImie_studenta(),
+                        student.getNazwisko_studenta(),
+                        student.getIndeks_studenta(),
+                        id);
+                return new ResponseEntity<>(studentObj, HttpStatus.OK);
+            }
+            studentObj = this.save(student);
+            return new ResponseEntity<>(studentObj, HttpStatus.CREATED);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
 
 }

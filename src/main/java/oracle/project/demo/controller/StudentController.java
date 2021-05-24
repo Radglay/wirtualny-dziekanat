@@ -1,9 +1,11 @@
 package oracle.project.demo.controller;
 
+import oracle.project.demo.model.Ocena;
 import oracle.project.demo.model.Przedmiot;
 import oracle.project.demo.model.Student;
 import oracle.project.demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,5 +41,10 @@ public class StudentController {
     @DeleteMapping("/{id}")
     public Optional<Student> delete(@PathVariable Long id) {
         return studentService.delete(id);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Student> update(@PathVariable Long id, @RequestBody Student student) {
+        return studentService.update(student, id);
     }
 }

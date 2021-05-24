@@ -1,8 +1,10 @@
 package oracle.project.demo.service;
 
+import oracle.project.demo.model.GrupaZajeciowa;
 import oracle.project.demo.model.Pracownik;
 import oracle.project.demo.repository.PracownikRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -64,5 +66,22 @@ public class PracownikService {
         return pracownikObj;
     }
 
+    public ResponseEntity<Pracownik> update(Pracownik pracownik, Long id) {
+        Pracownik pracownikObj = null;
+        if(id != null && id > 0) {
+            if(pracownikRepository.existsById(id)) {
+                //istnieje
+                pracownikObj =  pracownikRepository.findById(id).get();
+                pracownikRepository.update(pracownik.getImie_pracownika(),
+                        pracownik.getNazwisko_pracownika(), id);
+                return new ResponseEntity<Pracownik>(pracownikObj, HttpStatus.OK);
+            }
+            //nie istnieje
+            pracownikObj = this.save(pracownik);
+            return new ResponseEntity<Pracownik>(pracownikObj, HttpStatus.CREATED);
+        }
+
+        return new ResponseEntity<Pracownik>(HttpStatus.NOT_ACCEPTABLE);
+    }
 
 }

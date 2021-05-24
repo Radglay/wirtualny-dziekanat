@@ -4,6 +4,7 @@ import oracle.project.demo.model.Ocena;
 import oracle.project.demo.model.Przedmiot;
 import oracle.project.demo.service.PrzedmiotService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,5 +39,10 @@ public class PrzedmiotController {
     @DeleteMapping("/{id}")
     public Optional<Przedmiot> delete(@PathVariable Long id) {
         return przedmiotService.delete(id);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Przedmiot> update(@PathVariable Long id, @RequestBody Przedmiot przedmiot) {
+        return przedmiotService.update(przedmiot, id);
     }
 }

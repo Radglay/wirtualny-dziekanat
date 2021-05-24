@@ -3,6 +3,7 @@ package oracle.project.demo.controller;
 import oracle.project.demo.model.Ocena;
 import oracle.project.demo.service.OcenaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,5 +38,10 @@ public class OcenaController {
     @DeleteMapping("/{id}")
     public Optional<Ocena> delete(@PathVariable Long id) {
         return ocenaService.delete(id);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Ocena> update(@PathVariable Long id, @RequestBody Ocena ocena) {
+        return ocenaService.update(ocena, id);
     }
 }

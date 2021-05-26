@@ -3,6 +3,7 @@ package oracle.project.demo.controller;
 import oracle.project.demo.model.GrupaZajeciowa;
 import oracle.project.demo.service.GrupaZajeciowaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,5 +38,10 @@ public class GrupaZajeciowaController {
     @DeleteMapping("/{id}")
     public Optional<GrupaZajeciowa> delete(@PathVariable Long id) {
         return grupaZajeciowaService.delete(id);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<GrupaZajeciowa> update(@PathVariable Long id, @RequestBody GrupaZajeciowa grupaZajeciowa) {
+        return grupaZajeciowaService.update(grupaZajeciowa, id);
     }
 }

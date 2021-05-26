@@ -3,8 +3,10 @@ package oracle.project.demo.controller;
 import oracle.project.demo.model.Ocena;
 import oracle.project.demo.service.OcenaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +27,7 @@ public class OcenaController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Ocena> getById(@PathVariable Long id) {
+    public Optional<Ocena> getById(@PathVariable Long id) throws SQLException {
         return ocenaService.getById(id);
     }
 
@@ -37,5 +39,10 @@ public class OcenaController {
     @DeleteMapping("/{id}")
     public Optional<Ocena> delete(@PathVariable Long id) {
         return ocenaService.delete(id);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Ocena> update(@PathVariable Long id, @RequestBody Ocena ocena) {
+        return ocenaService.update(ocena, id);
     }
 }

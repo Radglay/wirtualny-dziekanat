@@ -1,8 +1,11 @@
 package oracle.project.demo.service;
 
+import oracle.project.demo.model.Student;
 import oracle.project.demo.model.TypZajec;
 import oracle.project.demo.repository.TypZajecRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -58,5 +61,21 @@ public class TypZajecService {
         }
 
         return typZajecObj;
+    }
+
+    public ResponseEntity<TypZajec> update(TypZajec typZajec, Long id) {
+        TypZajec typZajecObj = null;
+        if(id != null && id > 0) {
+            if(typZajecRepository.existsById(id)) {
+                //istnieje
+                typZajecObj = typZajecRepository.findById(id).get();
+                typZajecRepository.update(typZajec.getNazwa_typu_zajec(),id);
+                return new ResponseEntity<>(typZajecObj, HttpStatus.OK);
+            }
+            typZajecObj = this.save(typZajec.getNazwa_typu_zajec());
+            return new ResponseEntity<>(typZajec, HttpStatus.CREATED);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
 }

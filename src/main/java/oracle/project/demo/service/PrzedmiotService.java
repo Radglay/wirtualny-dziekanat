@@ -3,6 +3,8 @@ package oracle.project.demo.service;
 import oracle.project.demo.model.Przedmiot;
 import oracle.project.demo.repository.PrzedmiotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,5 +57,20 @@ public class PrzedmiotService {
         return przedmiotObj;
     }
 
+    public ResponseEntity<Przedmiot> update(Przedmiot przedmiot, Long id) {
+        Przedmiot przedmiotObj = null;
+        if(id != null && id > 0) {
+            if(przedmiotRepository.existsById(id)) {
+                //istnieje
+                przedmiotObj = przedmiotRepository.findById(id).get();
+                przedmiotRepository.update(przedmiot.getNazwa_przedmiotu(), id);
+
+                return new ResponseEntity<>(przedmiotObj, HttpStatus.OK);
+            }
+            przedmiotObj = this.save(przedmiot);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+    }
 
 }

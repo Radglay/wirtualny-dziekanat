@@ -4,6 +4,7 @@ import oracle.project.demo.model.Ocena;
 import oracle.project.demo.model.Pracownik;
 import oracle.project.demo.service.PracownikService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,5 +39,10 @@ public class PracownikController {
     @DeleteMapping("/{id}")
     public Optional<Pracownik> delete(@PathVariable Long id) {
         return pracownikService.delete(id);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Pracownik> update(@PathVariable Long id, @RequestBody Pracownik pracownik) {
+        return pracownikService.update(pracownik, id);
     }
 }

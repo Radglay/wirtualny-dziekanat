@@ -1,8 +1,10 @@
 package oracle.project.demo.controller;
 
+import oracle.project.demo.model.Ocena;
 import oracle.project.demo.model.TypZajec;
 import oracle.project.demo.service.TypZajecService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,5 +39,10 @@ public class TypZajecController {
     @DeleteMapping("/{id}")
     public Optional<TypZajec> delete(@PathVariable Long id) {
         return typZajecService.delete(id);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<TypZajec> update(@PathVariable Long id, @RequestBody TypZajec typZajec) {
+        return typZajecService.update(typZajec, id);
     }
 }

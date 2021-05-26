@@ -1,8 +1,11 @@
 package oracle.project.demo.service;
 
+import oracle.project.demo.model.Dziedzina;
 import oracle.project.demo.model.GrupaZajeciowa;
 import oracle.project.demo.repository.GrupaZajeciowaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -63,5 +66,20 @@ public class GrupaZajeciowaService {
         return grupaZajeciowaObj;
     }
 
+    public ResponseEntity<GrupaZajeciowa> update(GrupaZajeciowa grupaZajeciowa, Long id) {
+        GrupaZajeciowa grupaZajeciowaObj = null;
+        if(id != null && id > 0) {
+            if(grupaZajeciowaRepository.existsById(id)) {
+                //istnieje
+                grupaZajeciowaObj =  grupaZajeciowaRepository.findById(id).get();
+                grupaZajeciowaRepository.update(grupaZajeciowa.getNazwa_grupy_zajeciowej(), id);
+                return new ResponseEntity<GrupaZajeciowa>(grupaZajeciowaObj, HttpStatus.OK);
+            }
+            //nie istnieje
+                grupaZajeciowaObj = this.save(grupaZajeciowa);
+                return new ResponseEntity<GrupaZajeciowa>(grupaZajeciowaObj, HttpStatus.CREATED);
+            }
 
+            return new ResponseEntity<GrupaZajeciowa>(HttpStatus.NOT_ACCEPTABLE);
+    }
 }

@@ -1,8 +1,11 @@
 package oracle.project.demo.service;
 
+import oracle.project.demo.model.Student;
 import oracle.project.demo.model.Wydzial;
 import oracle.project.demo.repository.WydzialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,5 +57,21 @@ public class WydzialService {
         }
 
         return wydzialObj;
+    }
+
+    public ResponseEntity<Wydzial> update(Wydzial wydzial, Long id) {
+        Wydzial wydzialObj = null;
+        if(id != null && id > 0) {
+            if(wydzialRepository.existsById(id)) {
+                //istnieje
+                wydzialObj = wydzialRepository.findById(id).get();
+                wydzialRepository.update(wydzial.getNazwa_wydzialu(),id);
+                return new ResponseEntity<>(wydzialObj, HttpStatus.OK);
+            }
+            wydzialObj = this.save(wydzial);
+            return new ResponseEntity<>(wydzialObj, HttpStatus.CREATED);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
 }

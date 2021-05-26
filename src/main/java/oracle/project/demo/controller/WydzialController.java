@@ -1,8 +1,10 @@
 package oracle.project.demo.controller;
 
+import oracle.project.demo.model.Ocena;
 import oracle.project.demo.model.Wydzial;
 import oracle.project.demo.service.WydzialService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,5 +39,10 @@ public class WydzialController {
     @DeleteMapping("/{id}")
     public Optional<Wydzial> delete(@PathVariable Long id) {
         return wydzialService.delete(id);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Wydzial> update(@PathVariable Long id, @RequestBody Wydzial wydzial) {
+        return wydzialService.update(wydzial, id);
     }
 }

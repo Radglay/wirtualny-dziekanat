@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -90,12 +92,14 @@ public class StudentService {
         return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
 
-//    public  procedureGetOceny(Long id) throws SQLException {
-//        ResultSet resultSet = studentRepository.getOceny(id);
-//        while(resultSet.next()) {
-//            System.out.println(resultSet.getString("wartosc"));
-//        }
-//    }
+    public void getOceny(Long id) throws SQLException {
+        ResultSet resultSet = studentRepository.getOceny(id);
+        while(resultSet.next()) {
+            System.out.println(resultSet.getString("wartosc"));
+        }
+
+        //return resultSet;
+    }
 
     public ResponseEntity<?> addGupaZajeciowa(Long student_id, Long grupa_id) {
         Optional<GrupaZajeciowa> grupaZajeciowaObj = Optional.empty();

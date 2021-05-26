@@ -1,5 +1,9 @@
 package oracle.project.demo.service;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import oracle.project.demo.model.GrupaZajeciowa;
 import oracle.project.demo.model.Student;
 import oracle.project.demo.repository.GrupaZajeciowaRepository;
@@ -9,10 +13,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class StudentService {
@@ -92,13 +97,25 @@ public class StudentService {
         return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
 
-    public void getOceny(Long id) throws SQLException {
+    public ResponseEntity<?> getOceny(Long id) throws SQLException, IOException {
         ResultSet resultSet = studentRepository.getOceny(id);
+        ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+
+        //map result set to JSON
+        List<Map<String, Object>> rows = new ArrayList<>();
+        int numberOfColumns = resultSetMetaData.getColumnCount();
+
         while(resultSet.next()) {
-            System.out.println(resultSet.getString("wartosc"));
+           Map<String, Object> row = new HashMap<>();
+           for(int i = 1; i <= numberOfColumns; i++) {
+               String columnName = resultSetMetaData.getColumnName(i); //nazwa kolumny
+               Object columnValue = resultSet.getObject(i);
+               row.put(columnName, columnValue);
+           }
+           rows.add(row);
         }
 
-        //return resultSet;
+        return new ResponseEntity<>(rows,HttpStatus.OK);
     }
 
     public ResponseEntity<?> addGupaZajeciowa(Long student_id, Long grupa_id) {

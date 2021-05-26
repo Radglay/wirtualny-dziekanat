@@ -1,5 +1,6 @@
 package oracle.project.demo.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import oracle.project.demo.model.Ocena;
 import oracle.project.demo.model.Przedmiot;
 import oracle.project.demo.model.Student;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -51,8 +53,8 @@ public class StudentController {
     }
 
     @GetMapping("/{id}/oceny")
-    public void getOcenyById(@PathVariable Long id) throws SQLException {
-        studentService.getOceny(id);
+    public ResponseEntity<?> getOcenyById(@PathVariable Long id) throws SQLException, IOException {
+        return studentService.getOceny(id);
     }
 
     @PostMapping("/{id_studenta}/grupy-zajeciowe/{id_grupy}")

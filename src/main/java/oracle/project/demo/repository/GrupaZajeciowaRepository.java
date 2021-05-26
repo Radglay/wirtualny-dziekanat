@@ -19,4 +19,5 @@ public interface GrupaZajeciowaRepository extends JpaRepository<GrupaZajeciowa, 
     @Transactional
     @Query("update GrupaZajeciowa gz set gz.nazwa_grupy_zajeciowej = :nazwa where gz.id_grupy_zajeciowej = :id")
     void update(@Param("nazwa") String nazwa, @Param("id") Long id);
+
 }

@@ -5,9 +5,11 @@ import oracle.project.demo.model.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.ResultSet;
 import java.util.Optional;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
@@ -22,4 +24,11 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     void update(@Param("imie") String imie, @Param("nazwisko") String nazwisko,
                 @Param("indeks") String indeks, @Param("id") Long id);
 
+
+    @Procedure("PROCEDURE_ADD_GRUPA_ZAJECIOWA")
+    void addGrupaZajeciowa(Long id_studenta, Long id_grupy);
+
+
+    @Procedure(name = "Student.getOceny")
+    ResultSet getOceny(@Param("id") Long id);
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,4 +48,16 @@ public class StudentController {
     public ResponseEntity<Student> update(@PathVariable Long id, @RequestBody Student student) {
         return studentService.update(student, id);
     }
+
+//    @GetMapping("/{id}")
+//    public  getById(@PathVariable Long id) {
+//        return studentService.procedureGetOceny(id);
+//    }
+
+    @PostMapping("/{id_studenta}/grupy-zajeciowe/{id_grupy}")
+    public ResponseEntity<?> addGrupaZajeciowa(@PathVariable Long id_studenta, @PathVariable Long id_grupy) {
+        return studentService.addGupaZajeciowa(id_studenta, id_grupy);
+    }
+
+
 }

@@ -3,6 +3,8 @@ package oracle.project.demo.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.sql.ResultSet;
+
 
 @Entity
 public class Ocena {

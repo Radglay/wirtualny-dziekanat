@@ -8,14 +8,17 @@ import oracle.project.demo.repository.OcenaRepository;
 import oracle.project.demo.repository.PracownikRepository;
 import oracle.project.demo.repository.PrzedmiotRepository;
 import oracle.project.demo.repository.StudentRepository;
+import org.hibernate.engine.jdbc.cursor.internal.RefCursorSupportInitiator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
 
 @Service
 public class OcenaService {
@@ -93,5 +96,8 @@ public class OcenaService {
 
         return new ResponseEntity<Ocena>(HttpStatus.NOT_ACCEPTABLE);
     }
+
+
+
 
 }

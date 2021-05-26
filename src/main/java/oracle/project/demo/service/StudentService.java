@@ -1,15 +1,13 @@
 package oracle.project.demo.service;
 
-import oracle.project.demo.model.Ocena;
-import oracle.project.demo.model.Przedmiot;
+import oracle.project.demo.model.GrupaZajeciowa;
 import oracle.project.demo.model.Student;
-import oracle.project.demo.repository.OcenaRepository;
+import oracle.project.demo.repository.GrupaZajeciowaRepository;
 import oracle.project.demo.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,10 +15,12 @@ import java.util.Optional;
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
+    private final GrupaZajeciowaRepository grupaZajeciowaRepository;
 
     @Autowired
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository, GrupaZajeciowaRepository grupaZajeciowaRepository) {
         this.studentRepository = studentRepository;
+        this.grupaZajeciowaRepository = grupaZajeciowaRepository;
     }
 
     public List<Student> getAll() {
@@ -85,6 +85,30 @@ public class StudentService {
             }
             studentObj = this.save(student);
             return new ResponseEntity<>(studentObj, HttpStatus.CREATED);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+    }
+
+//    public  procedureGetOceny(Long id) throws SQLException {
+//        ResultSet resultSet = studentRepository.getOceny(id);
+//        while(resultSet.next()) {
+//            System.out.println(resultSet.getString("wartosc"));
+//        }
+//    }
+
+    public ResponseEntity<?> addGupaZajeciowa(Long student_id, Long grupa_id) {
+        Optional<GrupaZajeciowa> grupaZajeciowaObj = Optional.empty();
+        if(grupa_id != null && grupa_id > 0) {
+            if(grupaZajeciowaRepository.existsById(grupa_id)) {
+                if(student_id != null && student_id > 0) {
+                    if(studentRepository.existsById(student_id)) {
+                        grupaZajeciowaObj = grupaZajeciowaRepository.findById(grupa_id);
+                        studentRepository.addGrupaZajeciowa(student_id, grupa_id);
+                        return new ResponseEntity<>(grupaZajeciowaObj, HttpStatus.OK);
+                    }
+                }
+            }
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);

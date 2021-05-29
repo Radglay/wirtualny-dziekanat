@@ -25,8 +25,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
                 @Param("indeks") String indeks, @Param("id") Long id);
 
 
-    @Procedure("PROCEDURE_ADD_GRUPA_ZAJECIOWA")
-    void addGrupaZajeciowa(Long id_studenta, Long id_grupy);
+    @Procedure("PROCEDURE_ADD_GRUPA_STUDENT")
+    void addGrupaZajeciowa(Long id_studenta, Long id_grupy_zajeciowej);
 
 
     @Procedure(name = "Student.getOceny")

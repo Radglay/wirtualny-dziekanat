@@ -16,6 +16,6 @@ public interface DziedzinaRepository extends JpaRepository<Dziedzina, Long> {
 
     @Modifying
     @Transactional
-    @Query("update Dziedzina d set d.nazwa_dziedziny = :nazwa where d.id_dziedziny = :id")
+    @Query(  "update Dziedzina d set d.nazwa_dziedziny = :nazwa where d.id_dziedziny = :id")
     void update(@Param("nazwa") String nazwa, @Param("id") Long id);
 }

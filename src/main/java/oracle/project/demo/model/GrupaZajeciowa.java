@@ -1,9 +1,8 @@
 package oracle.project.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -14,34 +13,19 @@ public class GrupaZajeciowa {
     private Long id_grupy_zajeciowej;
     private String nazwa_grupy_zajeciowej;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date czas_rozpoczecia;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date czas_zakonczenia;
 
     @ManyToMany(mappedBy = "grupyZajeciowe")
-    Set<Student> studenci;
+    private Set<Student> studenci;
 
     @ManyToMany(mappedBy = "grupyZajeciowe")
-    Set<Pracownik> pracownicy;
+    private Set<Pracownik> pracownicy;
 
-    public Date getCzas_rozpoczecia() {
-        return czas_rozpoczecia;
+    @ManyToMany(mappedBy = "grupyZajeciowe")
+    private Set<Przedmiot> przedmioty;
+
+    public Long getId_grupy_zajeciowej() {
+        return id_grupy_zajeciowej;
     }
-
-    public void setCzas_rozpoczecia(Date czas_rozpoczecia) {
-        this.czas_rozpoczecia = czas_rozpoczecia;
-    }
-
-    public Date getCzas_zakonczenia() {
-        return czas_zakonczenia;
-    }
-
-    public void setCzas_zakonczenia(Date czas_zakonczenia) {
-        this.czas_zakonczenia = czas_zakonczenia;
-    }
-
     public void setId_grupy_zajeciowej(Long id_grupy_zajeciowej) {
         this.id_grupy_zajeciowej = id_grupy_zajeciowej;
     }
@@ -57,10 +41,8 @@ public class GrupaZajeciowa {
     public GrupaZajeciowa() {
     }
 
-    public GrupaZajeciowa(String nazwa_grupy_zajeciowej, Date czas_rozpoczecia, Date czas_zakonczenia) {
+    public GrupaZajeciowa(String nazwa_grupy_zajeciowej) {
         this.nazwa_grupy_zajeciowej = nazwa_grupy_zajeciowej;
-        this.czas_rozpoczecia = czas_rozpoczecia;
-        this.czas_zakonczenia = czas_zakonczenia;
     }
 
     @Override
@@ -68,8 +50,6 @@ public class GrupaZajeciowa {
         return "GrupaZajeciowa{" +
                 "id_grupy_zajeciowej=" + id_grupy_zajeciowej +
                 ", nazwa_grupy_zajeciowej='" + nazwa_grupy_zajeciowej + '\'' +
-                ", czas_rozpoczecia=" + czas_rozpoczecia +
-                ", czas_zakonczenia=" + czas_zakonczenia +
                 '}';
     }
 

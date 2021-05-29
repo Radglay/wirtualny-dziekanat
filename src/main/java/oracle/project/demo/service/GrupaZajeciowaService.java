@@ -1,13 +1,16 @@
 package oracle.project.demo.service;
 
-import oracle.project.demo.model.Dziedzina;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import oracle.project.demo.model.GrupaZajeciowa;
 import oracle.project.demo.repository.GrupaZajeciowaRepository;
+import oracle.project.demo.repository.PrzedmiotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,10 +18,12 @@ import java.util.Optional;
 public class GrupaZajeciowaService {
 
     private final GrupaZajeciowaRepository grupaZajeciowaRepository;
+    private final PrzedmiotRepository przedmiotRepository;
 
     @Autowired
-    public GrupaZajeciowaService(GrupaZajeciowaRepository grupaZajeciowaRepository) {
+    public GrupaZajeciowaService(GrupaZajeciowaRepository grupaZajeciowaRepository, PrzedmiotRepository przedmiotRepository) {
         this.grupaZajeciowaRepository = grupaZajeciowaRepository;
+        this.przedmiotRepository = przedmiotRepository;
     }
 
     public List<GrupaZajeciowa> getAll() {
@@ -37,16 +42,12 @@ public class GrupaZajeciowaService {
     public GrupaZajeciowa save(GrupaZajeciowa grupaZajeciowa) {
         GrupaZajeciowa grupaZajeciowaObj = null;
         String nazwa = grupaZajeciowa.getNazwa_grupy_zajeciowej();
-        if(grupaZajeciowa.getCzas_zakonczenia().after(grupaZajeciowa.getCzas_rozpoczecia())) {
             if(nazwa != null && !nazwa.equals("")) {
                 if(grupaZajeciowaRepository.findByNazwa_grupy_zajeciowej(nazwa).isEmpty()) {
                     //można utworzyć
                     grupaZajeciowaObj = grupaZajeciowaRepository.save(new GrupaZajeciowa(
-                            grupaZajeciowa.getNazwa_grupy_zajeciowej(),
-                            grupaZajeciowa.getCzas_rozpoczecia(),
-                            grupaZajeciowa.getCzas_zakonczenia()
+                            grupaZajeciowa.getNazwa_grupy_zajeciowej()
                     ));
-                }
             }
         }
 
@@ -81,5 +82,23 @@ public class GrupaZajeciowaService {
             }
 
             return new ResponseEntity<GrupaZajeciowa>(HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    public ResponseEntity<?> addGrupaPrzedmiot(Long id_grupy_zajeciowej, Long id_przedmiotu, Date czas_rozpoczecia) {
+        if(grupaZajeciowaRepository.existsById(id_grupy_zajeciowej)) {
+            if(przedmiotRepository.existsById(id_przedmiotu)) {
+                //można dodać
+                grupaZajeciowaRepository.addGrupaPrzedmiot(id_grupy_zajeciowej, id_przedmiotu, czas_rozpoczecia);
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+    }
+
+
+    public ResponseEntity<?> divideStudents(String nazwa_grupy) {
+        grupaZajeciowaRepository.divideStudents(nazwa_grupy);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@NamedStoredProcedureQuery(name = "Ocena.pokazOceny",
-        procedureName = "PROCEDURE_POKAZ_OCENY", parameters = {
+@NamedStoredProcedureQuery(name = "Student.getOceny",
+        procedureName = "PROCEDURE_GET_OCENY", parameters = {
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "id", type = Long.class),
         @StoredProcedureParameter(mode = ParameterMode.REF_CURSOR, name = "s_cursor", type = ResultSet.class)
 })

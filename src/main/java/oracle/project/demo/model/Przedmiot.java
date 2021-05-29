@@ -3,6 +3,7 @@ package oracle.project.demo.model;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Przedmiot {
@@ -17,6 +18,13 @@ public class Przedmiot {
 
     @OneToMany(mappedBy = "przedmiot")
     private List<Pracownik> pracownicy = new ArrayList<>();;
+
+    @ManyToMany
+    @JoinTable(
+            name = "grupy_przedmioty",
+            joinColumns = @JoinColumn(name = "id_przedmiotu"),
+            inverseJoinColumns = @JoinColumn(name = "id_grupy_zajeciowej"))
+    private Set<GrupaZajeciowa> grupyZajeciowe;
 
     public Long getId_przedmiotu() {
         return id_przedmiotu;

@@ -57,9 +57,9 @@ public class StudentController {
         return studentService.getOceny(id);
     }
 
-    @PostMapping("/{id_studenta}/grupy-zajeciowe/{id_grupy}")
-    public ResponseEntity<?> addGrupaZajeciowa(@PathVariable Long id_studenta, @PathVariable Long id_grupy) {
-        return studentService.addGupaZajeciowa(id_studenta, id_grupy);
+    @PostMapping("/{id_studenta}/grupy-zajeciowe/{id_grupy_zajeciowej}")
+    public ResponseEntity<?> addGrupaZajeciowa(@PathVariable Long id_studenta, @PathVariable Long id_grupy_zajeciowej) {
+        return studentService.addGupaZajeciowa(id_studenta, id_grupy_zajeciowej);
     }
 
 

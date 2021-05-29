@@ -4,6 +4,7 @@ import oracle.project.demo.model.GrupaZajeciowa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,4 +21,10 @@ public interface GrupaZajeciowaRepository extends JpaRepository<GrupaZajeciowa, 
     @Query("update GrupaZajeciowa gz set gz.nazwa_grupy_zajeciowej = :nazwa where gz.id_grupy_zajeciowej = :id")
     void update(@Param("nazwa") String nazwa, @Param("id") Long id);
 
+
+    @Procedure("PROCEDURE_ADD_GRUPA_PRZEDMIOT")
+    void addGrupaPrzedmiot(Long id_grupy_zajeciowej, Long id_przedmiotu, Date czas_rozpoczecia);
+
+    @Procedure("PROCEDURE_DIVIDE_STUDENTS")
+    void divideStudents(String group_type);
 }

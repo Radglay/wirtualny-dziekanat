@@ -1,0 +1,282 @@
+--------------------------------------------------------
+--  File created - sobota-maja-29-2021   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Function FUNCTION_AVG_OF_OCENY
+--------------------------------------------------------
+ALTER TABLE grupy_przedmioty
+ADD (
+   czas_rozpoczecia Timestamp NOT NULL,
+   czas_zakonczenia Timestamp
+);
+
+/
+
+--------------------------------------------------------
+--  File created - sobota-maja-29-2021   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Function FUNCTION_AVG_OF_OCENY
+--------------------------------------------------------
+
+--------------------------------------------------------
+--  DDL for View VIEW_GET_OCENY
+--------------------------------------------------------
+
+  CREATE OR REPLACE FORCE VIEW "SYSTEM"."VIEW_GET_OCENY" ("NAZWA_PRZEDMIOTU", "WARTOSC") AS 
+  SELECT 
+    p.nazwa_przedmiotu, o.wartosc
+FROM przedmiot p 
+    LEFT JOIN ocena o
+            ON p.id_przedmiotu = o.id_przedmiotu
+;
+
+/
+--------------------------------------------------------
+--  DDL for View VIEW_INTERSECT_GRUPY
+--------------------------------------------------------
+
+  CREATE OR REPLACE FORCE VIEW "SYSTEM"."VIEW_INTERSECT_GRUPY" ("ID_GRUPY_ZAJECIOWEJ") AS 
+  SELECT gz.id_grupy_zajeciowej FROM grupa_zajeciowa gz 
+INTERSECT
+SELECT sg.id_grupy_zajeciowej FROM studenci_grupy sg
+WHERE sg.id_studenta = 4
+;
+--------------------------------------------------------
+--  DDL for View VIEW_ZESTAWIENIE_OCEN
+--------------------------------------------------------
+/
+  CREATE OR REPLACE FORCE VIEW "SYSTEM"."VIEW_ZESTAWIENIE_OCEN" ("LICZBA", "2", "3", "4", "5") AS 
+  SELECT  "LICZBA","2","3","4","5" from (
+    SELECT  wartosc, count(*) as liczba
+    FROM ocena
+    GROUP BY wartosc
+) 
+pivot
+(
+    count(*) for wartosc in (2, 3, 4, 5)
+)
+;
+
+/
+
+  CREATE OR REPLACE FUNCTION "SYSTEM"."FUNCTION_AVG_OF_OCENY" (id_przedmiotu NUMBER) RETURN SYS_REFCURSOR AS 
+    c1 SYS_REFCURSOR;
+BEGIN
+    OPEN c1 FOR
+   WITH oceny_CTE AS
+    (
+        SELECT o.id_studenta, o.wartosc * o.waga_oceny AS suma, o.waga_oceny AS waga FROM ocena o WHERE o.id_przedmiotu = id_przedmiotu 
+    )
+    SELECT id_studenta, SUM(suma) / SUM(waga) AS srednia FROM oceny_CTE GROUP BY id_studenta;
+    
+    
+    RETURN(c1);
+END FUNCTION_AVG_OF_OCENY;
+
+/
+--------------------------------------------------------
+--  DDL for Function FUNCTION_AVG_OF_OCENY_ALL
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SYSTEM"."FUNCTION_AVG_OF_OCENY_ALL" RETURN SYS_REFCURSOR AS 
+    c1 SYS_REFCURSOR;
+    students NUMBER;
+BEGIN
+    SELECT count(*) INTO students FROM student; 
+    
+    OPEN c1 FOR
+   WITH oceny_CTE AS
+    (
+        SELECT o.id_studenta, o.wartosc * o.waga_oceny AS suma, o.waga_oceny AS waga FROM ocena o
+    ),
+    avg_CTE AS
+    (
+        SELECT id_studenta, SUM(suma) / SUM(waga) AS srednia FROM oceny_CTE GROUP BY id_studenta ORDER BY (SUM(suma) / SUM(waga)) DESC 
+    ) 
+    SELECT * FROM avg_CTE WHERE rownum < students / 10 + 1; 
+    
+    
+    
+    
+    RETURN(c1);
+END FUNCTION_AVG_OF_OCENY_ALL;
+
+/
+--------------------------------------------------------
+--  DDL for Function FUNCTION_WEAK_OCENY
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SYSTEM"."FUNCTION_WEAK_OCENY" (id_przedmiotu NUMBER) RETURN SYS_REFCURSOR AS 
+    c1 SYS_REFCURSOR;
+BEGIN
+    OPEN c1 FOR
+   WITH oceny_CTE AS
+    (
+        SELECT o.id_studenta, o.wartosc * o.waga_oceny AS suma, o.waga_oceny AS waga FROM ocena o WHERE o.id_przedmiotu = id_przedmiotu 
+    )
+    SELECT id_studenta, SUM(suma) / SUM(waga) AS srednia FROM oceny_CTE GROUP BY id_studenta 
+    MINUS
+    SELECT id_studenta, SUM(suma) / SUM(waga) AS srednia FROM oceny_CTE GROUP BY id_studenta HAVING SUM(suma) / SUM(waga) >= 3;
+    
+    
+    RETURN(c1);
+END FUNCTION_WEAK_OCENY;
+
+/
+
+
+
+
+create or replace TRIGGER TRIGGER2
+BEFORE INSERT OR UPDATE OF CZAS_ROZPOCZECIA ON grupy_przedmioty
+FOR EACH ROW
+BEGIN
+  DBMS_OUTPUT.put_line('Is working');
+  IF to_char(:New.czas_rozpoczecia, 'D') >= 6 THEN
+    raise_application_error( -20000, 'error during saving grupa_zajeciowa');
+  ELSE
+    :New.czas_zakonczenia := :New.czas_rozpoczecia + interval '30' minute + interval '1' hour;
+   /* INSERT INTO LOGS (column1, column2) VALUES (to_char(:New.czas_rozpoczecia, 'D'), :New.czas_rozpoczecia - interval '30' minute);*/
+  END IF;
+  
+END;
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------
+--  File created - sobota-maja-29-2021   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Procedure PROCEDURE_ADD_GRUPA_PRZEDMIOT
+--------------------------------------------------------
+/
+
+  CREATE OR REPLACE PROCEDURE "SYSTEM"."PROCEDURE_ADD_GRUPA_PRZEDMIOT" (id_grupy_zajeciowej IN NUMBER, id_przedmiotu IN NUMBER, czas_rozpoczecia IN Date) AS 
+BEGIN
+dbms_output.put_line('co jess');
+    INSERT INTO grupy_przedmioty (id_grupy_zajeciowej, id_przedmiotu, czas_rozpoczecia)
+                VALUES (id_grupy_zajeciowej, id_przedmiotu, czas_rozpoczecia);
+END PROCEDURE_ADD_GRUPA_PRZEDMIOT;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure PROCEDURE_ADD_GRUPA_STUDENT
+--------------------------------------------------------
+
+
+  CREATE OR REPLACE PROCEDURE "SYSTEM"."PROCEDURE_ADD_GRUPA_STUDENT" (id_studenta IN NUMBER, id_grupy_zajeciowej IN NUMBER) AS 
+  groups_num NUMBER;
+BEGIN
+    dbms_output.put_line(id_grupy_zajeciowej);
+    INSERT INTO STUDENCI_GRUPY (ID_STUDENTA, ID_GRUPY_ZAJECIOWEJ)
+                VALUES
+                (id_studenta, id_grupy_zajeciowej);
+END PROCEDURE_ADD_GRUPA_STUDENT;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure PROCEDURE_AVG_OF_OCENY
+--------------------------------------------------------
+
+  CREATE OR REPLACE PROCEDURE "SYSTEM"."PROCEDURE_AVG_OF_OCENY" (id_przedmiotu IN NUMBER, s_cursor OUT SYS_REFCURSOR) AS 
+BEGIN
+    open s_cursor FOR
+    WITH oceny_CTE AS
+    (
+        SELECT o.id_studenta, o.wartosc * o.waga_oceny AS suma, o.waga_oceny AS waga FROM ocena o WHERE o.id_przedmiotu = id_przedmiotu 
+    )
+    SELECT id_studenta, SUM(suma) / SUM(waga) AS srednia FROM oceny_CTE GROUP BY id_studenta;
+    
+END PROCEDURE_AVG_OF_OCENY;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure PROCEDURE_DIVIDE_STUDENTS
+--------------------------------------------------------
+
+
+  CREATE OR REPLACE PROCEDURE "SYSTEM"."PROCEDURE_DIVIDE_STUDENTS" (group_type IN varchar2) AS 
+    students_num NUMBER;
+    groups_num NUMBER;
+    in_group_num INTEGER;
+    mod_value NUMBER;
+    counter INTEGER default 0;
+    i INTEGER default 0;
+    id_grupy NUMBER default 0;
+    id_studenta NUMBER;
+BEGIN
+    
+  SELECT COUNT(s.id_studenta)INTO students_num FROM student s;
+ 
+  SELECT COUNT(gz.id_grupy_zajeciowej)INTO groups_num FROM grupa_zajeciowa gz
+  WHERE LOWER(gz.nazwa_grupy_zajeciowej) LIKE LOWER(CONCAT(group_type, '%'));
+ 
+  
+ 
+  
+  in_group_num := students_num / groups_num;
+  mod_value := students_num mod groups_num;
+
+  
+  
+  
+  LOOP
+    /*INSERT INTO GRUPA_ZAJECIOWA*/
+   
+    
+    IF (counter mod in_group_num = 0) THEN
+        i := i + 1;
+    
+        dbms_output.put_line(counter);
+        dbms_output.put_line(i);
+        SELECT gz.id_grupy_zajeciowej INTO id_grupy 
+        FROM grupa_zajeciowa gz
+        WHERE LOWER(gz.nazwa_grupy_zajeciowej)
+        LIKE LOWER(CONCAT(CONCAT(group_type, to_char(i)), '%'));
+       
+    END IF;
+      counter := counter + 1;
+      
+    EXIT WHEN
+        i > groups_num;
+        
+   EXIT WHEN counter = in_group_num * groups_num;
+      procedure_add_grupa_student(counter, id_grupy);
+
+    
+  END LOOP;
+  
+END PROCEDURE_DIVIDE_STUDENTS;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure PROCEDURE_GET_OCENY
+--------------------------------------------------------
+
+
+  CREATE OR REPLACE PROCEDURE "SYSTEM"."PROCEDURE_GET_OCENY" (id IN NUMBER, s_cursor OUT SYS_REFCURSOR)
+IS
+
+BEGIN
+    IF id != 0 THEN
+        OPEN s_cursor FOR 
+        SELECT nazwa_przedmiotu, wartosc 
+            FROM view_get_oceny
+            LEFT JOIN student s
+            ON s.id_studenta = id;
+           
+    END IF;
+    
+END PROCEDURE_GET_OCENY;
+
+/
+
+
+

@@ -30,10 +30,10 @@ POST localhost:8081/api/studenci/id_studenta}/grupy-zajeciowe/{id_grupy_zajeciow
   
 
 GET localhost:8081/api/dziedziny  
-GET localhost:8081/api/dziedziny/{id} 
+GET localhost:8081/api/dziedziny/{id}  
 POST localhost:8081/api/dziedziny  
-DELETE localhost:8081/api/dziedziny/{id}
-PATCH localhost:8081/api/dziedziny/{id} 
+DELETE localhost:8081/api/dziedziny/{id}  
+PATCH localhost:8081/api/dziedziny/{id}   
 
   
 GET localhost:8081/api/oceny  

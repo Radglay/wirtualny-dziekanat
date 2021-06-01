@@ -17,3 +17,20 @@
 8. Utworzenia nowego SQL Worksheet, Tools -> SQL Worksheet  
 9. Wklejenie i wykonanie zawartości pliku **kod_tworzenie.txt**  
 10. Wklejenie i wykonanie zawartości pliku **insert_sql.txt**  
+
+# Endpointy
+w miejsce {zmienna} wstawiamy wartość
+GET localhost:8081/api/studenci
+GET localhost:8081/api/studenci/{id}
+POST localhost:8081/api/studenci
+DELETE localhost:8081/api/studenci/{id}
+PATCH localhost:8081/api/studenci/{id}
+GET localhost:8081/api/studenci/{id}/oceny
+POST localhost:8081/api/studenci/id_studenta}/grupy-zajeciowe/{id_grupy_zajeciowej}
+
+GET localhost:8081/api/dziedziny
+GET localhost:8081/api/oceny
+GET localhost:8081/api/pracownicy
+GET localhost:8081/api/przedmioty
+GET localhost:8081/api/wydzialy
+GET localhost:8081/api/grupy-zajeciowe

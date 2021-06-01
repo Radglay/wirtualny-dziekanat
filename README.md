@@ -19,18 +19,52 @@
 10. Wklejenie i wykonanie zawartości pliku **insert_sql.txt**  
 
 # Endpointy
-w miejsce {zmienna} wstawiamy wartość
-GET localhost:8081/api/studenci
-GET localhost:8081/api/studenci/{id}
-POST localhost:8081/api/studenci
-DELETE localhost:8081/api/studenci/{id}
-PATCH localhost:8081/api/studenci/{id}
-GET localhost:8081/api/studenci/{id}/oceny
-POST localhost:8081/api/studenci/id_studenta}/grupy-zajeciowe/{id_grupy_zajeciowej}
+w miejsce {zmienna} wstawiamy wartość  
+GET localhost:8081/api/studenci  
+GET localhost:8081/api/studenci/{id}  
+POST localhost:8081/api/studenci  
+DELETE localhost:8081/api/studenci/{id}  
+PATCH localhost:8081/api/studenci/{id}  
+GET localhost:8081/api/studenci/{id}/oceny  
+POST localhost:8081/api/studenci/id_studenta}/grupy-zajeciowe/{id_grupy_zajeciowej}  
+  
 
-GET localhost:8081/api/dziedziny
-GET localhost:8081/api/oceny
-GET localhost:8081/api/pracownicy
-GET localhost:8081/api/przedmioty
-GET localhost:8081/api/wydzialy
-GET localhost:8081/api/grupy-zajeciowe
+GET localhost:8081/api/dziedziny  
+GET localhost:8081/api/dziedziny/{id} 
+POST localhost:8081/api/dziedziny
+DELETE localhost:8081/api/dziedziny/{id}
+PATCH localhost:8081/api/dziedziny/{id} 
+
+  
+GET localhost:8081/api/oceny  
+GET localhost:8081/api/oceny/{id}  
+POST localhost:8081/api/oceny
+DELETE localhost:8081/api/oceny/{id}
+PATCH localhost:8081/api/oceny/{id}
+
+GET localhost:8081/api/pracownicy  
+GET localhost:8081/api/pracownicy/{id}  
+POST localhost:8081/api/pracownicy  
+DELETE localhost:8081/api/pracownicy/{id}  
+PATCH localhost:8081/api/pracownicy/{id}  
+  
+GET localhost:8081/api/przedmioty  
+GET localhost:8081/api/przedmioty/{id}  
+POST localhost:8081/api/przedmioty  
+DELETE localhost:8081/api/przedmioty/{id}  
+PATCH localhost:8081/api/przedmioty/{id} 
+
+
+GET localhost:8081/api/wydzialy    
+GET localhost:8081/api/wydzialy/{id}  
+POST localhost:8081/api/wydzialy  
+DELETE localhost:8081/api/wydzialy/{id}  
+PATCH localhost:8081/api/wydzialy/{id} 
+  
+GET localhost:8081/api/grupy-zajeciowe      
+GET localhost:8081/api/grupy-zajeciowe/{id}    
+POST localhost:8081/api/grupy-zajeciowe   
+DELETE localhost:8081/api/grupy-zajeciowe/{id}  
+PATCH localhost:8081/api/grupy-zajeciowe/{id}  
+POST localhost:8081/api/grupy-zajeciowe/{id_grupy_zajeciowej}/przedmioty/{id_przedmiotu}  
+POST localhost:8081/api/grupy-zajeciowe/divide-students  

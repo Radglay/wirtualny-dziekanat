@@ -1,3 +1,5 @@
+Projekt zaliczeniowy z części Oracle z przedmiotu Bazy Danych
+
 ## wirtualny-dziekanat
 
 # budowanie
